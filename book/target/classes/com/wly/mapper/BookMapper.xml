@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wly.mapper.BookMapper">
+
+
+
+    <select id="listBook" resultType="com.wly.pojo.Book">
+        select * from books
+    </select>
+
+    <select id="FindBook" resultType="com.wly.pojo.Book">
+        select * from books where bookName like "%${findname}%"
+    </select>
+
+
+    <insert id="addBook">
+        insert into books(bookName,bookCounts,detail)
+        values (#{bookName},#{bookCounts},#{detail})
+    </insert>
+
+    <delete id="delete">
+        delete from books where bookID=#{id}
+    </delete>
+
+    <select id="getBookById" resultType="com.wly.pojo.Book">
+        select * from books where bookID=#{id}
+    </select>
+
+    <update id="updateBook">
+        update books set bookName=#{bookName},bookCounts=#{bookCounts},detail=#{detail}
+        where bookID=#{bookID}
+    </update>
+
+    <update id="borrowBook">
+        update books set bookCounts=#{bookCounts}-1
+        where bookID=#{bookID}
+    </update>
+
+    <update id="backBook">
+        update books set bookCounts=#{bookCounts}+1
+        where bookID=#{bookID}
+    </update>
+</mapper>
